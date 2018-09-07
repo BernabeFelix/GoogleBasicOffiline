@@ -204,3 +204,14 @@ gulp.task('pagespeed', pagespeed.bind(null, {
 
 // Load custom tasks from the `tasks` directory
 // try { require('require-dir')('tasks'); } catch (err) { console.error(err); }
+
+gulp.task('generate-service-worker', function(callback) {
+    var path = require('path');
+    var swPrecache = require('sw-precache');
+    var rootDir = 'app';
+
+    swPrecache.write(path.join(rootDir, 'sw.js'), {
+        staticFileGlobs: [rootDir + '/**/*.{js,html,css,png,jpg,gif,mp3}'],
+        stripPrefix: rootDir
+    }, callback);
+});
